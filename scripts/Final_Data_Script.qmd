@@ -32,6 +32,8 @@ library(knitr)
 
 ## Loading and Renaming the dataset
 
+##Love the organization! -Suzie
+
 ```{r}
 # Load the file
 file_path <- here("data", "hints6_public.rda")
@@ -39,6 +41,8 @@ load(file_path)
 
 # Change the file name to 'hints'
 hints <- public
+
+# If you don't want your environment to be cluttered by having the same data in there twice under two names, you can do that in one step when you import OR I learned you can delete from the environment by using rm(name_of_thing_you_dont_want_anymore) -Suzie
 ```
 
 # RQ1. What is the distribution of demographic/socio-economic categories, including age, gender, ethnicity, education, and income level, among individuals who do and do not use Telehealth services?
@@ -50,6 +54,8 @@ hints <- public
 # Select relevant columns for RQ1
 health_data <- hints %>%
   select(AgeGrpB, BirthGender, RACE_CAT2, HISP_CAT, Education, IncomeRanges, ReceiveTelehealthCare)
+
+##Totally makes to select only what you need since your dataset is so big! I would clean_names to ease typing. -Suzie
 
 # Recode, rename variables, and handle missing data
 health_data_clean <- health_data %>%
@@ -170,6 +176,10 @@ health_data_wide <- health_data_long %>%
 # View the cleaned dataset
 head(health_data_clean)
 
+## I've never used na_character, but that's a handy code! -Suzie
+
+##Also, I like how you commented throughout the code to share what you're doing. I think I need to do that more. -Suzie
+
 ```
 
 ## RQ1_2: Data Visualization
@@ -211,7 +221,7 @@ for (plot in plots) {
 }
 
 
-
+## Wow! A lot of great code here! I haven't done the list of demo variables before. Maybe consider changeing the colors in the plot to demonstrate that skill? -Suzie
 
 ```
 
@@ -246,8 +256,9 @@ summary_table_telehealth_stats <- health_data_clean %>%
   )
 
 # Display the summary statistics table
-kable(summary_table_telehealth_stats, caption = "Summary Statistics for Telehealth Usage")
+kable(summary_table_telehealth_stats, caption = "Summary Statistics for Telehealth Usage")    
 
+##This table is HUGE. I would consider making smaller tables. There's too much information in the table for a reader to digest! OR add a table of contents option in your YAML so you can skip to the next thing without having to scroll forever. -Suzie
 ```
 
 # RQ2. How do social media usage frequency and health information engagement levels on social media (low, medium, high) differ between individuals who use and do not use Telehealth services?
@@ -327,6 +338,8 @@ data_nl_2 <- data_nl %>%
   filter(!is.na(sm_interact)) %>% 
   filter(!is.na(sm_sharing)) %>% 
   filter(telehealth !="Missing")
+
+## I've never thought about different ways to measure social media engagement--so cool to see watching, interacting, and sharing. I bet there were some interesting discussions in your group to decide how to recode. Also, it makes me think about how one would measure "lurking" on social media (looking but not liking or sharing). -Suzie 
 ```
 
 ## RQ2_2. Grouping by Health Information Engagement Levels on Social Media: pivot_longer()
@@ -373,6 +386,8 @@ ggplot(data_freq_eng_group, aes(x = telehealth, fill = as.factor(sm_usage_freq))
        x = "Telehealth", y = "Count", 
        fill = "Social Media Usage Frequency")
 
+## I love the way this plot looks, but the stacking bars make it harder to compare the yes and no telehealth users. -Suzie
+
 ggplot(data_freq_eng_group, aes(
   x = as.factor(sm_usage_freq), fill = telehealth)) +
   geom_bar(position = "dodge") +
@@ -387,6 +402,8 @@ ggplot(data_freq_eng_group, aes(
       y = "Count",
       fill = "Telehealth Usage"
     )
+
+## Nevermind!! I see you did it both ways! Major kudos for all that work! -Suzie
 
 # Health Information Engagement Levels on Social Media X Telehealth
 
@@ -412,6 +429,8 @@ ggplot(data_freq_eng_group,
       y = "Count",
       fill = "Telehealth Usage"
     )
+
+## Super well done! 
 ```
 
 ## RQ2_4. Summary Statistics
@@ -432,6 +451,8 @@ summary_table_sm_freq <- data_freq_eng_group %>%
   rename(Telehealth = telehealth, SM_Usage_Freqency = sm_usage_freq) 
 
 kable(summary_table_sm_freq)
+
+## I would rename the SM_Usage_Frequency to something like "Social Media Usage Frequency."
 
 # Mean, Median, SD for Social Media Usage Frequency X Telehealth
 
@@ -467,6 +488,8 @@ summary_table_eng_lev_stats <- data_long %>%
   rename(Telehealth = telehealth) 
 
 kable(summary_table_eng_lev_stats)
+
+
 ```
 
 # RQ3. How does the distribution of cancer-related risk perception groups (low, medium, high) compare between individuals who use and do not use Telehealth services?
