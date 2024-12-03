@@ -248,6 +248,14 @@ summary_table_telehealth_stats <- health_data_clean %>%
 # Display the summary statistics table
 kable(summary_table_telehealth_stats, caption = "Summary Statistics for Telehealth Usage")
 
+# This is a very nice set of code, and a very informative table. In the rendered file, the table lists a ton of rows, and perhaps it could be good in certain situations to limit the output. This code below should set the number of rows in the output; this is for five rows, however it's customizable:
+
+#kable(
+#  head(summary_table_telehealth_stats, 5),  
+#  caption = "Summary Statistics for Telehealth Usage (First 5 Rows)"
+#)
+
+# Thanks for including your research questions (or adding indexes for referral) above each code chunk. It really makes the work flow logically, and is very clear/ easy to read.
 ```
 
 # RQ2. How do social media usage frequency and health information engagement levels on social media (low, medium, high) differ between individuals who use and do not use Telehealth services?
@@ -327,6 +335,8 @@ data_nl_2 <- data_nl %>%
   filter(!is.na(sm_interact)) %>% 
   filter(!is.na(sm_sharing)) %>% 
   filter(telehealth !="Missing")
+
+#Comments for data frame names: I'm inferring that 'data_nl' may refer to the initials of the coder (forgive me if wrong), and I think this is very helpful for the purposes of organizing, and sharing this work between coursemates. For future work (maybe professional!), I think it would be great to contextualize the data frame names, that refers back to the comments so that public viewers can infer what the data frames represent. Great job here-- this is an impressive, well organized set of code (across all team members' work, really).
 ```
 
 ## RQ2_2. Grouping by Health Information Engagement Levels on Social Media: pivot_longer()
@@ -597,6 +607,32 @@ cancer_risk_group %>%
        x = "Cancer Risk Perception Level", 
        y = "Number of Responses", 
        fill = "Telehealth Usage")
+
+# I love all of these visualizations, and the thoughtfulness that went into the code to make the graphs very easy to interpret. Since there is still may be time to edit, I think adding bolding, etc. might help the labels stand out more, and perhaps choosing a color scheme across each of the research questions could be great.
+
+#here's a bit of code that adds some context to the labels, and may help with label readability, etc:
+
+# #cancer_risk_group %>%
+#   mutate(risk_group = factor(risk_group, levels = c("Low", "Medium", "High"))) %>%
+#   ggplot(aes(x = risk_group, fill = telehealth)) +
+#   geom_bar(position = position_dodge(width = 0.8), width = 0.7) +  # Adjusts bar spacing and width
+#   theme_minimal(base_size = 14) +  # Increases base text size for better readability
+#   scale_fill_brewer(palette = "Paired") +  # Adds a color-blind-friendly palette
+#   labs(
+#     title = "Telehealth Usage by Cancer Risk Perception Levels", 
+#     subtitle = "Comparison of Low, Medium, and High Cancer Risk Groups", #subtitle added, for context
+#     x = "Cancer Risk Perception Level", 
+#     y = "Number of Responses", 
+#     fill = "Telehealth Usage"
+#   ) +
+#   theme(
+#     plot.title = element_text(size = 18, face = "bold", hjust = 0.5),  # Centers and bolds title
+#     plot.subtitle = element_text(size = 14, hjust = 0.5),  # subtitle styling
+#     axis.text = element_text(size = 12),  # Increases axis text size
+#     axis.title = element_text(size = 14, face = "bold"),  # Bolds axis labels
+#     legend.title = element_text(size = 12, face = "bold"),  # Bolds legend title
+#     legend.text = element_text(size = 10),  # Adjust legend text size
+#   )
 ```
 
 ## RQ3_4. Summary Statistics
